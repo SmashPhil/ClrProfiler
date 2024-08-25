@@ -4,8 +4,6 @@
 
 #include "pch.h"
 
-#include <fstream>
-
 class CorProfiler :
   public ICorProfilerCallback2
 {
@@ -26,11 +24,8 @@ public:
   HRESULT STDMETHODCALLTYPE FunctionLeave(FunctionID funcID);
 
 private:
-  constexpr static char const* kLogFileName = "profiler_log.txt";
-
   LONG m_refCount;
   ICorProfilerInfo* m_profilerInfo;
-  std::ofstream m_logFile{ kLogFileName, std::ios::out | std::ios::app };
 };
 
 #endif // PROFILER_H

@@ -1,6 +1,7 @@
 
 #include "pch.h"
 #include "profiler.h"
+#include "log.h"
 
 #include <ostream>
 #include <string>
@@ -12,8 +13,6 @@ CorProfiler::CorProfiler()
 {
   m_refCount = 0;
   m_profilerInfo = nullptr;
-
-  remove(kLogFileName);
 }
 
 CorProfiler::~CorProfiler()
@@ -51,20 +50,21 @@ STDMETHODIMP_(ULONG __stdcall) CorProfiler::Release()
 
 STDMETHODIMP_(HRESULT __stdcall) CorProfiler::Initialize(IUnknown* pICorProfilerInfoUnk)
 {
-  m_logFile << "Initializing profiler..." << std::endl;
+  Log::Message("Initializing profiler...");
   HRESULT hr = pICorProfilerInfoUnk->QueryInterface(IID_ICorProfilerInfo2, (LPVOID*)&m_profilerInfo);
   std::string result = FAILED(hr) ? "PASSED" : "FAILED";
-  m_logFile << "Result = " << result << std::endl;
+  Log::Message("Result=" + result);
   if (FAILED(hr)) {
     return hr;
   }
-  DWORD events = COR_PRF_MONITOR_ENTERLEAVE | COR_PRF_MONITOR_GC | COR_PRF_MONITOR_EXCEPTIONS | COR_PRF_MONITOR_THREADS | COR_PRF_MONITOR_ASSEMBLY_LOADS;
-  m_logFile << "Setting event masks..." << std::endl;
+  DWORD events = COR_PRF_MONITOR_ENTERLEAVE | COR_PRF_MONITOR_GC | COR_PRF_MONITOR_EXCEPTIONS |
+    COR_PRF_MONITOR_THREADS | COR_PRF_MONITOR_JIT_COMPILATION | COR_PRF_MONITOR_MODULE_LOADS;
+  Log::Message("Setting event masks...");
   hr = m_profilerInfo->SetEventMask(events);
   if (FAILED(hr)) {
     return hr;
   }
-  m_logFile << "Attached!" << std::endl;
+  Log::Message("Attached!");
   return S_OK;
 }
 

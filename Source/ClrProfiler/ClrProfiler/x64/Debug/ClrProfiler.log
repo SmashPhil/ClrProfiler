@@ -1,5 +1,8 @@
-﻿  dllmain.cpp
+﻿  pch.cpp
+  dllmain.cpp
+  log.cpp
   profiler.cpp
   Generating Code...
 CorGuids.lib(corprof_i.obj) : warning LNK4099: PDB '' was not found with 'CorGuids.lib(corprof_i.obj)' or at ''; linking object as if no debug info
+     Creating library D:\ClrProfiler\Source\ClrProfiler\x64\Debug\ClrProfiler.lib and object D:\ClrProfiler\Source\ClrProfiler\x64\Debug\ClrProfiler.exp
   ClrProfiler.vcxproj -> D:\ClrProfiler\Source\ClrProfiler\x64\Debug\ClrProfiler.dll
