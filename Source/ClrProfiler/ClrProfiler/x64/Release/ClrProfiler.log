@@ -1,0 +1,6 @@
+﻿  pch.cpp
+  dllmain.cpp
+  profiler.cpp
+profiler.obj : error LNK2001: unresolved external symbol IID_ICorProfilerCallback
+profiler.obj : error LNK2001: unresolved external symbol IID_ICorProfilerCallback2
+D:\ClrProfiler\Source\ClrProfiler\x64\Release\ClrProfiler.dll : fatal error LNK1120: 2 unresolved externals
